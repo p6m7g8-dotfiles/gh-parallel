@@ -5,6 +5,9 @@ on:
     types: [opened, synchronize, reopened, ready_for_review, edited]
   merge_group:
     types: [checks_requested]
+  push:
+    branches:
+      - gh-readonly-queue/**
   workflow_dispatch: {}
 
 jobs:
