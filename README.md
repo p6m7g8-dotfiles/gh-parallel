@@ -39,8 +39,41 @@ This is quite useful to clone organizations faster and or a list of disparate re
 ```shell
 Usage:
   gh parallel -h
-  gh parallel list [<login> [-- <list options>] | -h]
-  gh parallel clone [<login> <dest_dir> [-- <clone options] | -h]
+  gh parallel [-j <jobs>] [--dry-run] <command> [options]
+
+Commands:
+  list <login> [filters]              List repositories for a user/organization
+  clone <login> <dest_dir> [filters]  Clone repositories for a user/organization
+  sync <dest_dir>                     Sync all repositories in a directory
+  status <dest_dir>                   Show status of repositories in a directory
+  config [<key> [<value>]]            Get or set configuration options
+
+Global Options:
+  -h, --help      Show this help message
+  -j, --jobs <n>  Number of parallel jobs (default: 3)
+  --dry-run       Show what would be done without executing
+
+Filter Options (for list/clone):
+  --language <lang>   Only repos with the specified language
+  --topic <topic>     Only repos with the specified topic
+  --visibility <vis>  Only repos with visibility (public|private)
+  --archived          Only archived repositories
+  --source            Only non-fork repositories
+  --fork              Only forked repositories
+
+Config Keys:
+  jobs        Number of parallel jobs (default: 3)
+  visibility  Default visibility filter (public|private)
+  source      Default to source repos only (true|false)
+
+Examples:
+  gh parallel list myorg --source
+  gh parallel clone myorg ./repos --language python
+  gh parallel -j 8 clone myorg ./repos
+  gh parallel --dry-run clone myorg ./repos
+  gh parallel sync ./repos
+  gh parallel status ./repos
+  gh parallel config jobs 8
 ```
 
 ## Contributing
